@@ -82,10 +82,8 @@ You should NOT include any test calls when running Jest tests!
 */
 function renderPaletteRow(color, parent) {
   let div = document.createElement("div");
-  let parentWidth = getElementWidth(parent);
-  let boxWidth = parentWidth / color.length;
   for (let i = 0; i < color.length; i++) {
-    let newColorBox = createColorBox(color[i], boxWidth); 
+    let newColorBox = createColorBox(color[i], getElementWidth(parent) / color.length); 
     div.appendChild(newColorBox);
   }
   parent.appendChild(div);
@@ -110,8 +108,7 @@ renderPaletteTable();
 
 //Finally, remove the paragraph in the header that explains how to complete the 
 //problem.
-var headerParagraph = document.querySelector("p");
-headerParagraph.remove();
+document.querySelector("p").classList.remove();
 
 //Make functions and variables available to tester. DO NOT MODIFY THIS.
 if(typeof module !== 'undefined' && module.exports){

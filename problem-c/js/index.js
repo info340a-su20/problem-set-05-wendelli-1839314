@@ -47,15 +47,12 @@ function createTaskItemElement(task) {
 //Make sure your function removes any previous list content so that only the 
 //current task list is shown after this render call!
 function renderTaskList(taskList) {
-  let listItems = document.querySelector("ol");
-  while (listItems.firstChild) {
-    listItems.removeChild(listItems.lastChild);
-  }
+  let list = document.querySelector("ol");
+  list.innerHTML = "";
   for (let i = 0; i < taskList.length; i++) {
-    listItems.appendChild(createTaskItemElement(taskList[i]));
+    list.appendChild(createTaskItemElement(taskList[i]));
   }
   renderInput();
-  return listItems;
 }
 
 //Call your `renderTaskList()` function to render the initial list of tasks!
@@ -71,11 +68,8 @@ renderTaskList(state.taskList);
 //IMPORTANT: this function should _only_ modify the state and call the render 
 //function; it should not interact directly with the DOM!
 function addNewTask() {
-  state.taskList.push({
-    id: state.taskList[state.taskList.length - 1].id + 1, 
-    description: state.inputtedText, 
-    complete: false
-  });
+  let id = state.taskList[state.taskList.length - 1].id
+  state.taskList.push({id: id+1, description:state.inputtedText, complete:false});
   state.inputtedText = "";
   renderTaskList(state.taskList);
 }
@@ -96,11 +90,7 @@ input.addEventListener("input", function() {
 //
 //You should now be able to add new items to your task list!
 //Note that items will not add when you hit the "enter" key.
-var addTask = document.querySelector("#add-task");
-addTask.addEventListener("click", addNewTask);
-addTask.addEventListener("click", function() {
-  input.value = "";
-});
+document.querySelector("#add-task").addEventListener('click', addNewTask);
 
 //Time to fix some of the user experience. Define a new function `renderInput()`
 //that does two things:
@@ -113,13 +103,11 @@ addTask.addEventListener("click", function() {
 //AND to the end of your `'input'` event callback (so the input renders on each
 //user interaction).
 function renderInput() {
-  let input = document.querySelector("input");
-  let addTask = document.querySelector("#add-task");
-  input.value = state.inputtedText;
+  document.querySelector("input").value = state.inputtedText;
   if (state.inputtedText == "") {
-    addTask.disabled = true;
+    document.querySelector("#add-task").disabled = true;
   } else {
-    addTask.disabled = false;
+    document.querySelector("#add-task").disabled = false;
   }
 }
 

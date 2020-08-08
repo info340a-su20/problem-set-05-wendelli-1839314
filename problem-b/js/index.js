@@ -68,14 +68,14 @@ The "Date of Birth" should now show an error when empty or if the year is too
 recent; otherwise it should highlight as valid. Note that you'll need to hit
 "Sign me up!" first to enable the validation highlighting!
 */
-var bdayCheck = document.querySelector("#dobInput");
-bdayCheck.addEventListener('input', function() {
-  let age = getYearsSince(bdayCheck.value);
+var birthDayCheck = document.querySelector("#dobInput");
+birthDayCheck.addEventListener('input', function() {
+  let age = getYearsSince(birthDayCheck.value);
   if (age < 13 || age > 200) {
-    bdayCheck.setCustomValidity("You need to be at least 13 years old.");
+    birthDayCheck.setCustomValidity("You need to be at least 13 years old.");
     document.querySelector("#dobFeedback").textContent = "You need to be at least 13 years old.";
   } else {
-    bdayCheck.setCustomValidity("");
+    birthDayCheck.setCustomValidity("");
   }
 });
 
@@ -123,12 +123,9 @@ if the <form> element has the `was-validated` class. If so, set the button's
 This should disable the button until all of the fields are valid, but only after
 the user tries to submit once (which is a polite user experience)
 */
-var allInputs = document.querySelectorAll("input");
-allInputs.forEach(function(input) {
-  input.addEventListener("input",
-    function validateInput() {
+document.querySelectorAll("input").forEach(function(input) {
+  input.addEventListener('input', function validateInput() {
       let button = document.querySelector("button");
-      let form = document.querySelector("form");
       if (form.classList.contains("was-validated")) {
         button.disabled = !form.checkValidity();
       } 
